@@ -1,25 +1,29 @@
 class Solution {
 public:
+    long long solve(string &s, string&t, int n, int m, vector<vector<long long>> &dp, int i, int j){
+        if(i==n && j!=m) return 0;
+        else if(j == m) return 1;
+        if(dp[i][j] != -1) return dp[i][j];
+        if(s[i] == t[j]){
+            long long a = solve(s, t, n, m, dp, i+1, j+1);
+            long long b = solve(s, t, n, m, dp, i+1, j);
+            if(a > INT_MAX - b){
+                dp[i][j] = INT_MAX;
+            }
+            else{
+                dp[i][j] = solve(s, t, n, m, dp, i+1, j+1) + solve(s, t, n, m, dp, i+1, j);
+            }
+        }
+        else{
+            dp[i][j] = solve(s, t, n, m, dp, i+1, j);
+        }
+        return dp[i][j];
+
+    }
     int numDistinct(string s, string t) {
         int n = s.length();
         int m = t.length();
-        vector<vector<long long>>dp(n + 1, vector<long long>(m+1,-1));
-        for(int x = 0; x<=n;x++) dp[x][0] = 1;
-        for(int x = 1; x<=m;x++) dp[0][x] = 0;
-        for(int i = 1; i <= n; i++){
-            for(int j = 1; j<=m; j++){
-                if(s[i-1]==t[j-1]){
-                    if (dp[i-1][j] > INT_MAX - dp[i-1][j-1])
-                        dp[i][j] = INT_MAX;
-                    else
-                        dp[i][j] = dp[i-1][j] + dp[i-1][j-1];
-                }
-                else{
-                    dp[i][j] = dp[i-1][j];
-                }
-            }
-        }
-        return dp[n][m];
-
+        vector<vector<long long>>dp(n+1, vector<long long>(m+1, -1));
+        return solve(s, t, n, m, dp, 0, 0);
     }
 };
