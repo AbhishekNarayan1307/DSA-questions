@@ -13,7 +13,6 @@ public:
         // return solve(0, nums.size(), dp, nums);
         int n = nums.size();
         vector<int>dp(n+2, 0);
-        dp[n] = 0;
         for(int i = n -1; i>=0; i--){
             dp[i] = max(nums[i] + dp[i+2], dp[i+1]);
         }
