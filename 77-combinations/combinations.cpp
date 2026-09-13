@@ -1,37 +1,24 @@
 class Solution {
 public:
-    vector<vector<int>> ans;
-    set<vector<int>> s;
-    void solve(int i, int k, int n, vector<int>&op){
-        
-        if(i > n) return;
-        op.push_back(i);
-        if(op.size() == k){
-            s.insert(op);
-            op.pop_back();
+    vector<vector<int>> combine(int n, int k) {
+        std::vector<std::vector<int>> res;
+        std::vector<int> comb;
+
+        backtrack(1, comb, res, n, k);
+        return res;        
+    }
+
+private:
+    void backtrack(int start, std::vector<int>& comb, std::vector<std::vector<int>>& res, int n, int k) {
+        if (comb.size() == k) {
+            res.push_back(comb);
             return;
         }
-        for(int j = i + 1; j <= n; j++){
-            solve(j, k, n, op);
-        }
-        op.pop_back();
-        return;
-        
 
-    }
-    vector<vector<int>> combine(int n, int k) {
-        vector<int> op;
-        // int i = 1;
-        // while(i < n){
-        //     solve(i, k, n, op);
-        //     i++;
-        // }
-        for(int i = 1; i <= n; i++){
-            solve(i, k ,n, op);
+        for (int num = start; num <= n; num++) {
+            comb.push_back(num);
+            backtrack(num + 1, comb, res, n, k);
+            comb.pop_back();
         }
-        for(auto x : s){
-            ans.push_back(x);
-        }
-        return ans;
-    }
+    }    
 };
