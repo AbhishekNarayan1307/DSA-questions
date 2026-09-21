@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-    int diameter = INT_MIN;
+    int diameter = 0;
     int helper(TreeNode* root){
         if(!root) return 0;
         int LH = helper(root->left);
