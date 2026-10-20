@@ -1,22 +1,22 @@
 class Solution {
 public:
-    void helper(int n, vector<string> &v, int oc, int cc, string s){
+    void solve(vector<string> &ans, int oc, int cc, string s, int n){
         if(oc == n && cc == n){
-            v.push_back(s);
+            ans.push_back(s);
             return;
         }
         if(oc < n){
-            helper(n, v, oc + 1, cc, s+"(" );
+            solve(ans, oc + 1, cc, s + "(", n);
         }
         if(cc < oc){
-            helper(n, v, oc, cc + 1, s+")");
+            solve(ans, oc, cc+1, s + ")", n);
         }
     }
     vector<string> generateParenthesis(int n) {
-        vector<string> v;
+        vector<string> ans;
         int oc = 0;
         int cc = 0;
-        helper(n, v, oc, cc, "");
-        return v;
+        solve(ans, oc, cc, "",n);
+        return ans;
     }
 };
