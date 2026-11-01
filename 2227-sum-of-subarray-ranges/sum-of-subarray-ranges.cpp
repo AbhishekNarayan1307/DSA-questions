@@ -14,6 +14,7 @@ public:
                 res += (long long)maxi - mini;
             }
         }
+        
 
         return res;
     }
