@@ -1,7 +1,7 @@
 
 class Solution {
 public:
-    void solve(string digits, string mp[], vector<string>& ans, string op, int i) {
+    void solve(string digits, vector<string> mp, vector<string>& ans, string op, int i) {
         if (i == digits.length()) {
             ans.push_back(op);
             return;
@@ -19,8 +19,8 @@ public:
 
     vector<string> letterCombinations(string digits) {
         if (digits.empty()) return {};
-
-        string mp[10] = {"", "", "abc", "def", "ghi", "jkl",
+        
+       vector<string> mp = {"", "", "abc", "def", "ghi", "jkl",
                          "mno", "pqrs", "tuv", "wxyz"};
         vector<string> ans;
         solve(digits, mp, ans, "", 0);
